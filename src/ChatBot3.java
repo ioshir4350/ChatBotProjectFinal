@@ -12,7 +12,7 @@ public class ChatBot3
         Scanner in = new Scanner (System.in);
         System.out.println (getGreeting());
 
-
+//Intro
         while (!statement.equals("Bye"))
         {
 
@@ -29,7 +29,7 @@ public class ChatBot3
     {
         return "Hi, what is poppin?";
     }
-
+//Greeting
     public String getResponse(String statement)
     {
         String response = "";
@@ -44,7 +44,7 @@ public class ChatBot3
             response = "rude";
             emotion--;
         }
-        else if (findKeyword(statement, "How's school?") >= 0)
+        else if (findKeyword(statement, "How's school?" ) >= 0)
         {
             response = "Hard";
         }
@@ -66,6 +66,10 @@ public class ChatBot3
         {
             response = transformIWantStatement(statement);
         }
+        else if (findKeyword(statement, "When does period",0) >= 0)
+        {
+            response = transformRequestforBellSchedule(statement);
+        }
         else
         {
             response = getRandomResponse();
@@ -74,6 +78,7 @@ public class ChatBot3
         return response;
     }
 
+// Transform I want to
     private String transformIWantToStatement(String statement)
     {
         //  Remove the final period, if there is one
@@ -104,7 +109,22 @@ public class ChatBot3
         String restOfStatement = statement.substring(psn + 6).trim();
         return "If you want" + restOfStatement + ", then how do you plan to achieve it?";
     }
-
+    private String transformRequestforBellSchedule(String statement)
+    {
+        int bellschedule[] = {800,847,932,1022,1107,1152,1237,122,207,252};
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("."))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        int psn = findKeyword (statement, "When is period", 0);
+        String restOfStatement = statement.substring(psn + 16).trim();
+        int period = Integer.parseInt(restOfStatement);
+        return "It starts "+  bellschedule[period];
+    }
     private int findKeyword(String statement, String goal,
                             int startPos)
     {
@@ -165,7 +185,6 @@ public class ChatBot3
 
     private String [] randomNeutralResponses = {"cool, what else",
             "Hmmm.",
-            "*fist bumps",
             "I'm good",
             "Alrighty then",
             "tell me something else"
