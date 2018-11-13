@@ -7,6 +7,7 @@ public class ChatBot3 {
 
     int emotion = 0;
 
+<<<<<<< HEAD
     // Start of chat//
     public void chatLoop(String statement) {
         Scanner in = new Scanner(System.in);
@@ -14,6 +15,11 @@ public class ChatBot3 {
 
 
         while (!statement.equals("Bye")) {
+=======
+//Intro
+        while (!statement.equals("Bye"))
+        {
+>>>>>>> 890e11a5fa65fd5e3bb233addd75c94c79ab35b5
 
 
             statement = in.nextLine();
@@ -31,9 +37,15 @@ public class ChatBot3 {
     public String getGreeting() {
         return "Hi, what is poppin?";
     }
+<<<<<<< HEAD
 
     // Greeting//
     public String getResponse(String statement) {
+=======
+//Greeting
+    public String getResponse(String statement)
+    {
+>>>>>>> 890e11a5fa65fd5e3bb233addd75c94c79ab35b5
         String response = "";
 
         if (statement.length() == 0) {
@@ -41,7 +53,13 @@ public class ChatBot3 {
         } else if (findKeyword(statement, "no") >= 0) {
             response = "rude";
             emotion--;
+<<<<<<< HEAD
         } else if (findKeyword(statement, "How's school?") >= 0) {
+=======
+        }
+        else if (findKeyword(statement, "How's school?" ) >= 0)
+        {
+>>>>>>> 890e11a5fa65fd5e3bb233addd75c94c79ab35b5
             response = "Hard";
         } else if (findKeyword(statement, "I'm tired") >= 0) {
             response = "You think you're tired? I have a 1-10 with three lunches for no reason and I have 4 AP classes";
@@ -52,17 +70,33 @@ public class ChatBot3 {
             response = transformIWantToStatement(statement);
         } else if (findKeyword(statement, "I want", 0) >= 0) {
             response = transformIWantStatement(statement);
+<<<<<<< HEAD
         } else if (findKeyword(statement, "When does period", 0) >= 0) {
             response = transformRequestforBellSchedule(statement);
         } else {
+=======
+        }
+        else if (findKeyword(statement, "When does period",0) >= 0)
+        {
+            response = transformRequestforBellSchedule(statement);
+        }
+        else
+        {
+>>>>>>> 890e11a5fa65fd5e3bb233addd75c94c79ab35b5
             response = getRandomResponse();
         }
 
         return response;
     }
 
+<<<<<<< HEAD
     //
     private String transformIWantToStatement(String statement) {
+=======
+// Transform I want to
+    private String transformIWantToStatement(String statement)
+    {
+>>>>>>> 890e11a5fa65fd5e3bb233addd75c94c79ab35b5
         //  Remove the final period, if there is one
         statement = statement.trim();
         String lastChar = statement.substring(statement
@@ -88,6 +122,7 @@ public class ChatBot3 {
         String restOfStatement = statement.substring(psn + 6).trim();
         return "If you want" + restOfStatement + ", then how do you plan to achieve it?";
     }
+<<<<<<< HEAD
 
     private String transformRequestforBellSchedule(String statement) {
         statement = statement.trim();
@@ -110,6 +145,24 @@ public class ChatBot3 {
 
 
 
+=======
+    private String transformRequestforBellSchedule(String statement)
+    {
+        int bellschedule[] = {800,847,932,1022,1107,1152,1237,122,207,252};
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals("."))
+        {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        int psn = findKeyword (statement, "When is period", 0);
+        String restOfStatement = statement.substring(psn + 16).trim();
+        int period = Integer.parseInt(restOfStatement);
+        return "It starts "+  bellschedule[period];
+    }
+>>>>>>> 890e11a5fa65fd5e3bb233addd75c94c79ab35b5
     private int findKeyword(String statement, String goal,
                             int startPos)
     {
@@ -170,7 +223,6 @@ public class ChatBot3 {
 
     private String [] randomNeutralResponses = {"cool, what else",
             "Hmmm.",
-            "*fist bumps",
             "I'm good",
             "Alrighty then",
             "tell me something else"
