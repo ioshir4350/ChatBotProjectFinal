@@ -91,7 +91,10 @@ public class ChatBot1
         }
 
         // Response transforming I want to statement
-
+        else if(findKeyword(statement,"i",0) >= 0 && findKeyword(statement,"you", 2)>= 0)
+        {
+            response = transformIYouStatement(statement);
+        }
 
         else if (findKeyword(statement, "i want to", 0) >= 0)
         {
@@ -128,10 +131,6 @@ public class ChatBot1
         }
         else if (findKeyword(statement,"do you know",0) >= 0) {
             response = transformdoyouknow(statement);
-        }
-        else if(findKeyword(statement,"i",0) >= 0 && findKeyword(statement,"you", 2)>= 0)
-        {
-            response = transformIYouStatement(statement);
         }
         else
         {

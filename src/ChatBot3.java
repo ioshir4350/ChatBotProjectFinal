@@ -1,20 +1,19 @@
-
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 //William leung//
 
-public class ChatBot3
-{
+public class ChatBot3 {
 
     int emotion = 0;
-    public void chatLoop(String statement)
-    {
-        Scanner in = new Scanner (System.in);
-        System.out.println (getGreeting());
+
+    // Start of chat//
+    public void chatLoop(String statement) {
+        Scanner in = new Scanner(System.in);
+        System.out.println(getGreeting());
 
 
-        while (!statement.equals("Bye"))
-        {
+        while (!statement.equals("Bye")) {
 
 
             statement = in.nextLine();
@@ -25,85 +24,91 @@ public class ChatBot3
         }
 
     }
-    public String getGreeting()
-    {
+
+    String bellschedule[] = {"8:00 AM", "8:47 AM", "9:32 AM", "10:22 AM", "11:07 AM", "11:52 AM", "12:37 AM", "1:22 PM",
+            "2:07 PM"};
+
+    public String getGreeting() {
         return "Hi, what is poppin?";
     }
 
-    public String getResponse(String statement)
-    {
+    // Greeting//
+    public String getResponse(String statement) {
         String response = "";
 
-        if (statement.length() == 0)
-        {
+        if (statement.length() == 0) {
             response = "Say something I'm giving up on you~.";
-        }
-
-        else if (findKeyword(statement, "no") >= 0)
-        {
+        } else if (findKeyword(statement, "no") >= 0) {
             response = "rude";
             emotion--;
-        }
-        else if (findKeyword(statement, "How's school?") >= 0)
-        {
+        } else if (findKeyword(statement, "How's school?") >= 0) {
             response = "Hard";
-        }
-        else if (findKeyword(statement, "I'm tired") >= 0)
-        {
+        } else if (findKeyword(statement, "I'm tired") >= 0) {
             response = "You think you're tired? I have a 1-10 with three lunches for no reason and I have 4 AP classes";
             emotion--;
-        }
-        else if (findKeyword(statement, "I want to die") >= 0)
-        {
+        } else if (findKeyword(statement, "I want to die") >= 0) {
             response = "please don't do that";
-        }
-
-        else if (findKeyword(statement, "I want to", 0) >= 0)
-        {
+        } else if (findKeyword(statement, "I want to", 0) >= 0) {
             response = transformIWantToStatement(statement);
-        }
-        else if (findKeyword(statement, "I want",0) >= 0)
-        {
+        } else if (findKeyword(statement, "I want", 0) >= 0) {
             response = transformIWantStatement(statement);
-        }
-        else
-        {
+        } else if (findKeyword(statement, "When does period", 0) >= 0) {
+            response = transformRequestforBellSchedule(statement);
+        } else {
             response = getRandomResponse();
         }
 
         return response;
     }
 
-    private String transformIWantToStatement(String statement)
-    {
+    //
+    private String transformIWantToStatement(String statement) {
         //  Remove the final period, if there is one
         statement = statement.trim();
         String lastChar = statement.substring(statement
                 .length() - 1);
-        if (lastChar.equals("."))
-        {
+        if (lastChar.equals(".")) {
             statement = statement.substring(0, statement
                     .length() - 1);
         }
-        int psn = findKeyword (statement, "I want to", 0);
+        int psn = findKeyword(statement, "I want to", 0);
         String restOfStatement = statement.substring(psn + 9).trim();
         return "Why do you want to " + restOfStatement + "?";
     }
 
-    private String transformIWantStatement(String statement)
-    {
+    private String transformIWantStatement(String statement) {
         statement = statement.trim();
         String lastChar = statement.substring(statement
                 .length() - 1);
-        if (lastChar.equals("."))
-        {
+        if (lastChar.equals(".")) {
             statement = statement.substring(0, statement
                     .length() - 1);
         }
-        int psn = findKeyword (statement, "I want", 0);
+        int psn = findKeyword(statement, "I want", 0);
         String restOfStatement = statement.substring(psn + 6).trim();
         return "If you want" + restOfStatement + ", then how do you plan to achieve it?";
     }
+
+    private String transformRequestforBellSchedule(String statement) {
+        statement = statement.trim();
+        String lastChar = statement.substring(statement
+                .length() - 1);
+        if (lastChar.equals(".")) {
+            statement = statement.substring(0, statement
+                    .length() - 1);
+        }
+        int psn = findKeyword(statement, "When does period", 0);
+        String restOfStatement = statement.substring(17, 18);
+        Integer prd = Integer.valueOf(restOfStatement);
+        int trueprd = prd - 1;
+        if (trueprd >= 0 && trueprd <= 9) {
+            return "It starts " + bellschedule[trueprd];
+        } else {
+            return "You don't have class in that period";
+        }
+    }
+
+
 
     private int findKeyword(String statement, String goal,
                             int startPos)
